@@ -1,29 +1,27 @@
-Started by user ChenuliPerera
-[Pipeline] Start of Pipeline
-[Pipeline] node
-Running on Jenkins in /Users/chenuliperera/.jenkins/workspace/my pipeline
-[Pipeline] {
-[Pipeline] stage
-[Pipeline] { (Build)
-[Pipeline] echo
-Building......
-Post stage
-[Pipeline] mail
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Test)
-[Pipeline] echo
-Testing.....
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Deploy)
-[Pipeline] echo
-Deploying.....
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] }
-[Pipeline] // node
-[Pipeline] End of Pipeline
-Finished: SUCCESS
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building......'
+            }
+            post {
+                always {
+                    mail to: 'chenuperera13@gmail.com',
+                         subject: 'Build Status Email',
+                         body: 'Build log attached'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing.....'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying.....'
+            }
+        }
+    }
+}
